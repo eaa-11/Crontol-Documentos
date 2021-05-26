@@ -1,0 +1,177 @@
+﻿@model IPagedList<CapaEntidad.Document>
+
+@{
+    ViewBag.Title = "Documentos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using PagedList.Mvc;
+@using PagedList;
+
+<h3>Lista de Documentos</h3>
+
+@using (Html.BeginForm(null, null, FormMethod.Get))
+{
+    <div class="form-horizontal">
+        @if (ViewBag.Error != null)
+        {
+            <label class="text-danger">@ViewBag.Error</label>
+        }
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.Label("Usuario", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.DropDownList("User_Id", null, htmlAttributes: new { @class = "form-control", @onchange = "this.form.submit()" })
+                </div>
+            </div>
+            <div class="col-md-2">
+                @Html.Label("D. Origen", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.DropDownList("Departament_Origen_Id", null, htmlAttributes: new { @class = "form-control", @onchange = "this.form.submit()" })
+                </div>
+            </div>
+            <div class="col-md-2">
+                @Html.Label("D. Destino", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.DropDownList("Departament_Destino_Id", null, htmlAttributes: new { @class = "form-control", @onchange = "this.form.submit()" })
+                </div>
+            </div>
+            <div class="col-md-2">
+                @Html.Label("F. Inicio", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.Editor("fechainicio", new { htmlAttributes = new { @class = "form-control", @type = "date", @onchange = "this.form.submit()" } })
+                </div>
+            </div>
+            <div class="col-md-2">
+                @Html.Label("F. Final", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.Editor("fechafinal", new { htmlAttributes = new { @class = "form-control", @type = "date", @onchange = "this.form.submit()" } })
+                </div>
+            </div>
+            <div class="col-md-2">
+                @Html.Label("Tipo de filtro", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @{
+                        List<SelectListItem> listItemss = new List<SelectListItem>();
+                        listItemss.Add(new SelectListItem
+                        {
+                            Text = "Seleccionar filtro",
+                            Value = "seleccionar",
+                            Selected = true
+                        }); ;
+                        listItemss.Add(new SelectListItem
+                        {
+                            Text = "Mostrar todos",
+                            Value = "todos",
+                            Selected = true
+                        }); ;
+                        listItemss.Add(new SelectListItem
+                        {
+                            Text = "Por usuario",
+                            Value = "usuario",
+                        });
+                        listItemss.Add(new SelectListItem
+                        {
+                            Text = "Por departamento origen",
+                            Value = "origen",
+                        });
+                        listItemss.Add(new SelectListItem
+                        {
+                            Text = "Por departamento destino",
+                            Value = "destino",
+                        });
+                        listItemss.Add(new SelectListItem
+                        {
+                            Text = "Por rango de fechas",
+                            Value = "fecha",
+                        });
+                    }
+                    @Html.DropDownList("tipofiltro", listItemss, new { @class = "form-control btn-danger", @onchange = "this.form.submit()" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2 text-right">
+                @Html.Label("-", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    <a href="@Url.Action("Create")" class="btn btn-success col-md-12"><i class="fa fa-plus" aria-hidden="true"></i> Crear Nuevo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Numero)
+        </th>
+        <th>
+            Usuario
+        </th>
+        <th>
+            Origen
+        </th>
+        <th>
+            Destino
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Nombre)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Numero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Nombres)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Departament1.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Departament.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td class="text-right">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        Opciones <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu text-center" role="menu">
+                        <li>
+                            <a href="@Url.Action("Edit", new { id = item.Id })"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Details", new { id = item.Id })"><i class="fa fa-eye" aria-hidden="true"></i> Ver</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Delete", new { id = item.Id })"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</a>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager(Model, i => Url.Action("Index", "Document", new {
+    i,
+    tipofiltro = Request.QueryString["filter"],
+    User_Id = Request.QueryString["User_Id"],
+    Departament_Origen_Id = Request.QueryString["Departament_Origen_Id"],
+    Departament_Destino_Id = Request.QueryString["Departament_Destino_Id"],
+    fechainicio = Request.QueryString["fechainicio"],
+    fechafinal = Request.QueryString["fechafinal"]
+}))

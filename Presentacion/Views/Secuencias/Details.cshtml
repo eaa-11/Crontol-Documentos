@@ -1,0 +1,25 @@
+﻿@model CapaEntidad.Secuencia
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Secuencia: Información</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Numero)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-primary"> Editar</a> |
+    <a href="@Url.Action("Index")" class="btn btn-success"> Volver</a>
+</div>

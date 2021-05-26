@@ -1,0 +1,65 @@
+﻿@model CapaEntidad.Document
+
+@{
+    ViewBag.Title = "Documento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Documento: Información</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User_Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User_Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Departament_Origen_Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Departament_Origen_Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Departament_Destino_Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Departament_Destino_Id)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-primary"> Editar</a> |
+    <a href="@Url.Action("Index")" class="btn btn-success"> Volver</a>
+</div>

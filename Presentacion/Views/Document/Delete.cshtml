@@ -1,0 +1,72 @@
+﻿@model CapaEntidad.Document
+
+@{
+    ViewBag.Title = "Eliminar Documentos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>¿Estás seguro que quieres eliminarlo?</h3>
+<div>
+    <h3>Documento: Eliminar</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            Usuario
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Nombres)
+        </dd>
+
+        <dt>
+            Departamento Origen
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Departament.Nombre)
+        </dd>
+
+        <dt>
+            Departamento Destino
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Departament1.Nombre)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+            <a href="@Url.Action("Index")" class="btn btn-success"> Volver</a>
+        </div>
+    }
+</div>

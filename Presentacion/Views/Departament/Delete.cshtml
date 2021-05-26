@@ -1,0 +1,40 @@
+﻿@model CapaEntidad.Departament
+
+@{
+    ViewBag.Title = "Eliminar Departamento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>¿Estás seguro que quieres eliminarlo?</h3>
+<div>
+    <h3>Departamento: Eliminar</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Siglas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Siglas)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+            <a href="@Url.Action("Index")" class="btn btn-success"> Volver</a>
+        </div>
+    }
+</div>

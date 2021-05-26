@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNet.Identity
+@if (User.Identity.IsAuthenticated)
+{
+    using (Html.BeginForm("Logout", "Users", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="#">Hola @User.Identity.GetUserName()!</a>
+            </li>
+            <li>@Html.ActionLink("Cerrar sesión", "Logout", "Users", routeValues: null, htmlAttributes: new { id = "loginLogout" })</li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Iniciar sesión", "Login", "Users", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
