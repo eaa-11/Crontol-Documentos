@@ -26,10 +26,10 @@ o Por rango de fecha
 
 ## Tecnologias
 
-En este trabajo se implemento el uso de arquitectura en capas junto con la arquitectura MVC.
+En este trabajo se implemento el uso de arquitectura en capas junto con la arquitectura MVC en la capa de UI.
 
+-HTML & CSS
 -JavaScript
--HTMl y Css
--C#
+-ASP.NET
 -ORM(EF)
--BooStrap
+-Bootstrap
